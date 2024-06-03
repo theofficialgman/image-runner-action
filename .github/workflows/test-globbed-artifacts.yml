@@ -1,0 +1,24 @@
+name: Test globbed artifacts
+on:
+  push:
+    branches:
+      - 'main'
+      - 'releases/**'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ./ # pguyot/arm-runner-action@HEAD
+      with:
+        copy_artifact_path: "*"
+        commands: |
+            touch artifact1
+            touch artifact2
+    - name: Test globbed artifacts were copied
+      run: |
+        test -f artifact1
+        test -f artifact2

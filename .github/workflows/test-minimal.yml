@@ -1,0 +1,19 @@
+name: Test minimal configuration
+on:
+  push:
+    branches:
+      - 'main'
+      - 'releases/**'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ./ # pguyot/arm-runner-action@HEAD
+      with:
+        commands: |
+            echo "Minimal"
+            test `uname -m` = 'armv6l'
