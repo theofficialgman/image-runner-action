@@ -1,0 +1,19 @@
+name: Test armv7l cpu option
+on:
+  push:
+    branches:
+      - 'main'
+      - 'releases/**'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ./ # theofficialgman/arm-runner-action@HEAD
+      with:
+        commands: |
+            echo "Minimal"
+            test `uname -m` = 'armv7l'

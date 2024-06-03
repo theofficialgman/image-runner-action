@@ -1,0 +1,20 @@
+name: Test exit_on_fail
+on:
+  push:
+    branches:
+      - 'main'
+      - 'releases/**'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ./ # theofficialgman/arm-runner-action@HEAD
+      with:
+        exit_on_fail: false
+        commands: |
+          false
+          exit 0

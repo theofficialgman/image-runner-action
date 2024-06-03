@@ -1,0 +1,22 @@
+name: Test artifact copy
+on:
+  push:
+    branches:
+      - 'main'
+      - 'releases/**'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ./ # theofficialgman/arm-runner-action@HEAD
+      with:
+        copy_artifact_path: artifact
+        commands: |
+            touch artifact
+    - name: Test artifact was copied
+      run: |
+        test -f artifact
