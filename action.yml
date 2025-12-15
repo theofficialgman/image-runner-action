@@ -93,7 +93,7 @@ runs:
       shell: bash
     - name: Restore base image (if available)
       id: cache_restore
-      uses: actions/cache/restore@v4
+      uses: actions/cache/restore@v5
       with:
         path: ${{ runner.temp }}/image-runner
         key: ${{ inputs.base_image }}
@@ -110,7 +110,7 @@ runs:
     - name: Save base image (if needed)
       id: cache_save
       if: steps.cache_restore.outputs.cache-hit != 'true' && inputs.enable_image_caching == 'yes'
-      uses: actions/cache/save@v4
+      uses: actions/cache/save@v5
       with:
         path: ${{ runner.temp }}/image-runner
         key: ${{ inputs.base_image }}
